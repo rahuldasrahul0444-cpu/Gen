@@ -1,5 +1,6 @@
 # main.py
 import os
+import sys
 import json
 import asyncio
 import traceback
@@ -11,10 +12,11 @@ import uvicorn
 try:
     import gen
 except Exception as e:
-    print("\n" + "="*50)
-    print("CRITICAL ERROR: Could not import gen.py")
-    print("="*50)
-    traceback.print_exc()
+    print("\n" + "="*50, file=sys.stderr)
+    print("CRITICAL ERROR: Could not import gen.py", file=sys.stderr)
+    print("="*50, file=sys.stderr)
+    traceback.print_exc(file=sys.stderr)
+    sys.stderr.flush()
     raise e
 
 app = FastAPI()
@@ -71,7 +73,6 @@ def web_couples_found(account1, account2, reason):
     make_logger("info")(msg)
 gen.print_couples_found = web_couples_found
 
-# Disable Rich terminal UI so it runs cleanly in background
 def safe_start_live(total, region, is_ghost, summary=None):
     with gen._live_lock:
         gen._STATUS.update({'current': 0, 'total': total, 'rare': 0, 'couples': 0, 'region': region, 'is_ghost': is_ghost, 'threads_alive': 0, 'elapsed': 0.0, 'speed': 0.0, 'last_event': 'starting...'})
@@ -117,7 +118,6 @@ async def start_generation(data: dict):
     gen.settings.TARGET_ACCOUNTS = count
     gen.settings.INFLIGHT_COUNTER = 0
     
-    # Proxy setup
     if proxy and proxy.strip():
         gen.PROXY_LIST = [proxy.strip()]
         gen.set_proxy_mode(True)

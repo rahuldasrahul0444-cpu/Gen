@@ -726,7 +726,7 @@ OAUTH_TOKEN_URL = "https://ffmconnect.live.gop.garenanow.com/api/v2/oauth/guest/
 OAUTH_REGISTER_URL = "https://ffmconnect.live.gop.garenanow.com/api/v2/oauth/guest:register"
 CLIENT_SECRET = "2ee44819e9b4598845141067b281621874d0d5d7af9d8f7e00c1e54715b7d1e3"
 
-CLIENT_VERSION, REMOTE_VERSION, RELEASE_VERSION = AutoUpdate()
+CLIENT_VERSION, REMOTE_VERSION, RELEASE_VERSION = (None, None, None)
 CLIENT_VERSION_CODE = "2019118525"
 LOGIN_URL = "https://loginbp.ppmainecoonghj.com"
 PROXY_LIST: list[str] = []
@@ -1000,7 +1000,7 @@ def ensure_login_config() -> bool:
     if REMOTE_VERSION and RELEASE_VERSION:
         return True
     print_warning('server_url / release_version missing — refetching…')
-    CLIENT_VERSION, REMOTE_VERSION, RELEASE_VERSION = AutoUpdate()
+    CLIENT_VERSION, REMOTE_VERSION, RELEASE_VERSION = (None, None, None)
     if not CLIENT_VERSION or not REMOTE_VERSION or not RELEASE_VERSION:
         print_warning('AutoUpdate failed  - cannot continue without client_version / remote_version / release_version')
         return False

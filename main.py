@@ -1,11 +1,21 @@
-# server.py
+# main.py
 import os
 import json
 import asyncio
+import traceback
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 import uvicorn
-import gen
+
+# ─── SAFE IMPORT FOR RAILWAY DEBUGGING ───
+try:
+    import gen
+except Exception as e:
+    print("\n" + "="*50)
+    print("CRITICAL ERROR: Could not import gen.py")
+    print("="*50)
+    traceback.print_exc()
+    raise e
 
 app = FastAPI()
 
@@ -181,13 +191,11 @@ async def get_files():
             for f in os.listdir(path):
                 if f.endswith('.json'):
                     files.append({"label": f"[{label}] {f}", "path": os.path.join(path, f)})
-    # Sort alphabetically by label
     files.sort(key=lambda x: x["label"])
     return {"files": files}
 
 @app.get("/api/file_data")
 async def get_file_data(path: str):
-    # Security check to prevent directory traversal
     abs_path = os.path.abspath(path)
     base_path = os.path.abspath(gen.settings.BASE_FOLDER)
     if not abs_path.startswith(base_path):

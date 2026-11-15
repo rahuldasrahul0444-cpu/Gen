@@ -1,23 +1,34 @@
-# main.py
-import os
+# server.py
 import sys
+import os
 import json
 import asyncio
 import traceback
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
-import uvicorn
 
-# ─── SAFE IMPORT FOR RAILWAY DEBUGGING ───
+# 🔥 YE LINE LOGS ME SABSE UPAR DIKHEGI 🔥
+print("========================================", flush=True)
+print("🚀 INITIALIZING ZIHAD CORE SERVER...", flush=True)
+print("========================================", flush=True)
+
 try:
+    from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+    from fastapi.responses import HTMLResponse
+    import uvicorn
+    print("✅ FastAPI & Uvicorn loaded", flush=True)
+except ImportError as e:
+    print(f"❌ CRITICAL MISSING LIBRARY: {e}", file=sys.stderr, flush=True)
+    sys.exit(1)
+
+# ─── SAFE IMPORT FOR GEN.PY ───
+try:
+    print("🔄 Importing gen.py...", flush=True)
     import gen
+    print("✅ gen.py loaded successfully", flush=True)
 except Exception as e:
-    print("\n" + "="*50, file=sys.stderr)
-    print("CRITICAL ERROR: Could not import gen.py", file=sys.stderr)
-    print("="*50, file=sys.stderr)
+    print("\n❌ CRITICAL ERROR: Could not import gen.py", file=sys.stderr, flush=True)
     traceback.print_exc(file=sys.stderr)
     sys.stderr.flush()
-    raise e
+    sys.exit(1)
 
 app = FastAPI()
 
@@ -229,5 +240,8 @@ async def get_dashboard():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    print(f"\n🚀 Web Dashboard running on http://localhost:{port}\n")
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    print(f"\n🚀 Web Dashboard running on http://0.0.0.0:{port}\n", flush=True)
+    try:
+        uvicorn.run(app, host="0.0.0.0", port=port)
+    except Exception as e:
+        print(f"❌ Uvicorn crash: {e}", file=sys.stderr, flush=True)

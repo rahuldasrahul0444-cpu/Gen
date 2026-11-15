@@ -6,3 +6,7 @@ google-play-scraper
 psutil
 rich
 websockets
+requests
+beautifulsoup4
+urllib3
+pysocks

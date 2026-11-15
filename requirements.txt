@@ -1,3 +1,4 @@
+
 fastapi
 uvicorn
 httpx
@@ -10,4 +11,4 @@ requests
 beautifulsoup4
 urllib3
 pysocks
-aiohttp
+aiohttp>=3.12.0

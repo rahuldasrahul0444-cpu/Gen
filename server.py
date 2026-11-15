@@ -5,7 +5,7 @@ import json
 import asyncio
 import traceback
 
-# 🔥 YE LINES LOGS ME SABSE UPAR DIKHEGI 🔥
+# 🔥 RAILWAY LOGS ME SABSE UPAR DIKHEGA 🔥
 print("========================================", flush=True)
 print("🚀 INITIALIZING ZIHAD CORE SERVER...", flush=True)
 print("========================================", flush=True)
@@ -14,7 +14,7 @@ try:
     from fastapi import FastAPI, WebSocket, WebSocketDisconnect
     from fastapi.responses import HTMLResponse
     import uvicorn
-    print("✅ FastAPI & Uvicorn loaded", flush=True)
+    print("✅ FastAPI & Uvicorn loaded successfully", flush=True)
 except ImportError as e:
     print(f"❌ CRITICAL MISSING LIBRARY: {e}", file=sys.stderr, flush=True)
     sys.exit(1)

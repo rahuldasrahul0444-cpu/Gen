@@ -5,7 +5,7 @@ import json
 import asyncio
 import traceback
 
-# 🔥 YE LINE LOGS ME SABSE UPAR DIKHEGI 🔥
+# 🔥 YE LINES LOGS ME SABSE UPAR DIKHEGI 🔥
 print("========================================", flush=True)
 print("🚀 INITIALIZING ZIHAD CORE SERVER...", flush=True)
 print("========================================", flush=True)

@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+httpx
+pycryptodome
+google-play-scraper
+psutil
+rich
+websockets
